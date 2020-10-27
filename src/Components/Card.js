@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Card(){
+function Card(){
 
     const url = 'https://www.blockchain.com/ticker#';
 
@@ -10,6 +10,18 @@ export default function Card(){
     requete.responseType = 'json';
     requete.send();
 
+    requete.onload = function() {
+        if (requete.readyState === XMLHttpRequest.DONE) {
+            if(requete.status === 200) {
+                let reponse = requete.response; // Stockage de la réponse.
+                let prixEnEuros = reponse.EUR.last;
+                console.log(prixEnEuros);
+            } else {
+                alert ("Un problème est survenu: merci de revenir plus tard.");
+            }
+        }
+    }
+
     return (
         <div>
             <h1>Card</h1>
@@ -17,4 +29,4 @@ export default function Card(){
     )
 }
 
-export default Card
+export default Card;
